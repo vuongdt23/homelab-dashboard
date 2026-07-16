@@ -437,9 +437,7 @@ button {
 }
 
 :root[data-theme="orca"] .hero-art img {
-  object-position: center 55%;
-  transform: scale(1.24);
-  filter: grayscale(1) contrast(1.08);
+  object-position: center 42%;
 }
 
 :root[data-theme="whale"] .hero-art img {
@@ -482,7 +480,6 @@ button {
   border-left: 1px solid color-mix(in srgb, var(--border), transparent 55%);
 }
 
-.theme-label,
 .section-kicker {
   margin: 0;
   color: var(--accent);
@@ -491,34 +488,6 @@ button {
   line-height: 1.35;
   letter-spacing: 0;
   text-transform: uppercase;
-}
-
-#heroTitle {
-  margin: var(--space-xs) 0 0;
-  font-size: 56px;
-  font-weight: 900;
-  line-height: 0.98;
-  letter-spacing: 0;
-}
-
-:root[data-theme="orca"] #heroTitle {
-  color: #ffffff;
-  font-style: italic;
-  text-transform: uppercase;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.7);
-}
-
-:root[data-theme="whale"] #heroTitle {
-  max-width: 12ch;
-  color: var(--accent);
-}
-
-#heroDescription {
-  max-width: 36ch;
-  margin: var(--space-md) 0 0;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.5;
 }
 
 /* =========================================================
@@ -578,20 +547,52 @@ button {
    ========================================================= */
 
 .whale-fact {
-  display: block;
+  margin: 0;
   text-align: left;
-  margin-top: var(--space-md);
   padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
-  border: none;
   border-left: 2px solid var(--accent);
-  background: transparent;
   color: var(--text);
-  cursor: pointer;
   max-width: 52ch;
 }
 
-.whale-fact__text { display: block; font-size: 15px; font-style: italic; line-height: 1.5; }
-.whale-fact__meta { display: block; margin-top: 6px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); }
+.whale-fact__text {
+  margin: 0;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.5;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+}
+
+.whale-fact__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: 6px;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  color: var(--accent);
+}
+
+.whale-fact__reroll {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: var(--muted);
+  font: inherit;
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  cursor: pointer;
+  transition: color 140ms ease;
+}
+
+.whale-fact__reroll:hover,
+.whale-fact__reroll:focus-visible {
+  color: var(--accent);
+}
 
 /* =========================================================
    Responsive breakpoints (Task 13 additions)
@@ -613,15 +614,6 @@ button {
     min-height: 420px;
     justify-content: flex-end;
     padding: var(--space-lg);
-  }
-
-  :root[data-theme="orca"] .hero-art img {
-    object-position: center 74%;
-    transform: scale(1.42);
-  }
-
-  #heroTitle {
-    font-size: 40px;
   }
 
   .service-zone,

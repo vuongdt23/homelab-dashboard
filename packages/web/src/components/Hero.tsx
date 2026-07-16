@@ -1,9 +1,9 @@
 import type { HostMetrics } from "@homelab/shared";
 import { useWhaleFact } from "../hooks/useWhaleFact.js";
 
-const THEME_ART: Record<string, { image: string; title: string; desc: string }> = {
-  orca: { image: "/orca-pod.png", title: "Orca Night", desc: "A focused launcher for your media stack over Tailscale." },
-  whale: { image: "/blue-whale.png", title: "Oceanic Serenity", desc: "A calm launcher for your media stack over Tailscale." },
+const THEME_ART: Record<string, { image: string; title: string }> = {
+  orca: { image: "/orca-pod.png", title: "Orca Night" },
+  whale: { image: "/blue-whale.png", title: "Oceanic Serenity" },
 };
 
 function pct(v: number | null): string { return v === null ? "—" : `${v}%`; }
@@ -24,19 +24,21 @@ export function Hero({ theme, metrics }: { theme: "orca" | "whale"; metrics: Hos
     { label: "Uptime", value: uptime(metrics.uptimeSeconds) },
   ];
   return (
-    <section className="hero-panel" aria-labelledby="heroTitle">
+    <section className="hero-panel" aria-label={`${art.title} — dashboard hero`}>
       <figure className="hero-art">
-        <img src={art.image} width={1024} height={1024} alt={`${art.title} artwork`} />
+        <img src={art.image} width={1024} height={434} alt={`${art.title} artwork`} />
       </figure>
       <div className="hero-copy">
-        <p className="theme-label">{art.title}</p>
-        <h1 id="heroTitle">{art.title}</h1>
-        <p id="heroDescription">{art.desc}</p>
         {fact && (
-          <button type="button" className="whale-fact" onClick={reroll} aria-label="Whale fact — tap to reroll">
-            <span className="whale-fact__text">"{fact.text.trim()}"</span>
-            <span className="whale-fact__meta">Whale Fact · tap to reroll</span>
-          </button>
+          <figure className="whale-fact">
+            <blockquote className="whale-fact__text">"{fact.text.trim()}"</blockquote>
+            <figcaption className="whale-fact__meta">
+              <span>Whale Fact</span>
+              <button type="button" className="whale-fact__reroll" onClick={reroll} aria-label="Show another whale fact">
+                reroll ↻
+              </button>
+            </figcaption>
+          </figure>
         )}
       </div>
       <div className="hero-metrics" aria-label="Host metrics">
