@@ -1,0 +1,12 @@
+{
+  "services": [
+    { "id": "jellyfin",     "name": "Jellyfin",     "role": "Media library and playback", "port": 8096, "icon": "icons/jellyfin.svg",     "accent": "#a855f7" },
+    { "id": "sonarr",       "name": "Sonarr",       "role": "Series automation",          "port": 8989, "icon": "icons/sonarr.svg",       "accent": "#35c5f4" },
+    { "id": "radarr",       "name": "Radarr",       "role": "Movie automation",           "port": 7878, "icon": "icons/radarr.svg",       "accent": "#f4c24f" },
+    { "id": "prowlarr",     "name": "Prowlarr",     "role": "Indexer management",         "port": 9696, "icon": "icons/prowlarr.svg",     "accent": "#22b8a0" },
+    { "id": "bazarr",       "name": "Bazarr",       "role": "Subtitle automation",        "port": 6767, "icon": "icons/bazarr.svg",       "accent": "#7cc6ff" },
+    { "id": "transmission", "name": "Transmission", "role": "Torrent downloads",          "port": 9091, "icon": "icons/transmission.svg", "accent": "#d34f4f" },
+    { "id": "immich",       "name": "Immich",       "role": "Photo and video library",    "port": 2283, "icon": "icons/immich.svg",       "accent": "#4250af" },
+    { "id": "subvault",     "name": "SubVault",     "role": "Subtitle archive browser",   "port": 7654, "icon": "icons/subvault.svg",     "accent": "#5eb0a8" }
+  ]
+}

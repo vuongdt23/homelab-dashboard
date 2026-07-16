@@ -1,0 +1,15 @@
+services:
+  dashboard:
+    build: .
+    container_name: homelab-dashboard
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /storage:/host/storage:ro
+      - ./config/services.json:/app/config/services.json:ro
+    environment:
+      - PROC_DIR=/host/proc
+      - STORAGE_PATH=/host/storage
+      - DASHBOARD_HOST=${DASHBOARD_HOST:-localhost}
+      - DASHBOARD_PORT=${DASHBOARD_PORT:-8770}

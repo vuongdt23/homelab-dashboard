@@ -1,0 +1,709 @@
+/* =========================================================
+   Theme foundation — ported from root styles.css (Task 10)
+   Contains: design tokens, theme variables, resets, base body
+   Does NOT contain: component styles (Tasks 12-13)
+   ========================================================= */
+
+/* Base tokens */
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --card-radius: 8px;
+  --hero-radius: 40px;
+  --pill-radius: 999px;
+  --status-up: #37e39b;
+  --status-down: #ff6b6b;
+  --status-checking: #f4c24f;
+}
+
+/* Orca (dark ocean) theme */
+:root[data-theme="orca"] {
+  color-scheme: dark;
+  --bg: #051424;
+  --bg-deep: #010f1f;
+  --surface: rgba(13, 28, 45, 0.84);
+  --surface-solid: #0d1c2d;
+  --surface-raised: #122131;
+  --text: #d4e4fa;
+  --muted: #b9caca;
+  --accent: #00dce5;
+  --support: #c3c6d7;
+  --border: rgba(0, 220, 229, 0.22);
+  --border-strong: rgba(0, 220, 229, 0.58);
+  --shadow: 0 28px 70px rgba(0, 0, 0, 0.34);
+  --panel-shadow: 0 0 42px rgba(0, 220, 229, 0.08);
+}
+
+/* Blue Whale (light) theme */
+:root[data-theme="whale"] {
+  color-scheme: light;
+  --bg: #f5faff;
+  --bg-deep: #e7eff6;
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-solid: #ffffff;
+  --surface-raised: #e7eff6;
+  --text: #151d22;
+  --muted: #424750;
+  --accent: #265fa2;
+  --support: #196a59;
+  --warm: #c8c8b0;
+  --border: rgba(38, 95, 162, 0.18);
+  --border-strong: rgba(38, 95, 162, 0.42);
+  --shadow: 0 28px 64px rgba(38, 95, 162, 0.12);
+  --panel-shadow: 0 24px 60px rgba(38, 95, 162, 0.1);
+}
+
+/* Box model reset */
+* {
+  box-sizing: border-box;
+}
+
+/* Base layout */
+html,
+body {
+  min-width: 320px;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+
+/* Theme-specific body backgrounds */
+:root[data-theme="orca"] body {
+  background:
+    radial-gradient(circle at 56% -10%, rgba(0, 220, 229, 0.07), transparent 44%),
+    radial-gradient(circle at 90% 30%, rgba(0, 220, 229, 0.04), transparent 30%),
+    radial-gradient(circle, rgba(0, 220, 229, 0.08) 1px, transparent 1px),
+    linear-gradient(135deg, #051424 0%, #03101c 100%);
+  background-size: auto, auto, 12px 12px, auto;
+}
+
+:root[data-theme="whale"] body {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(80, 193, 193, 0.18), transparent 34%),
+    radial-gradient(circle at 8% 90%, rgba(25, 106, 89, 0.1), transparent 34%),
+    linear-gradient(180deg, #f5faff 0%, #eef9f8 48%, #ffffff 100%);
+}
+
+/* Element resets */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto;
+    transition-duration: 0.01ms;
+  }
+}
+
+/* =========================================================
+   Service grid + card (Task 12)
+   ========================================================= */
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+.service-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 152px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr auto auto;
+  gap: var(--space-xs) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  background: var(--surface-solid);
+  color: var(--text);
+  box-shadow: var(--panel-shadow);
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+:root[data-theme="whale"] .service-card {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 42px rgba(38, 95, 162, 0.1);
+}
+
+.service-card:hover,
+.service-card:focus-visible {
+  border-color: var(--border-strong);
+  background: var(--surface-raised);
+}
+
+:root[data-theme="whale"] .service-card:hover,
+:root[data-theme="whale"] .service-card:focus-visible {
+  background: #ffffff;
+}
+
+.service-card__icon {
+  width: 48px;
+  height: 48px;
+  display: inline-grid;
+  place-items: center;
+  grid-row: 1 / 3;
+  border: 1px solid color-mix(in srgb, var(--service-color, var(--accent)), transparent 68%);
+  border-radius: var(--card-radius);
+  background: color-mix(in srgb, var(--surface-solid), var(--service-color, var(--accent)) 8%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #ffffff, transparent 78%);
+}
+
+.service-card__icon img {
+  width: 36px;
+  height: 36px;
+  display: block;
+  object-fit: contain;
+}
+
+:root[data-theme="whale"] .service-card__icon {
+  background: color-mix(in srgb, #ffffff, var(--service-color, var(--accent)) 7%);
+}
+
+.service-card:hover .service-card__icon,
+.service-card:focus-visible .service-card__icon {
+  border-color: color-mix(in srgb, var(--service-color, var(--accent)), transparent 42%);
+  background: color-mix(in srgb, var(--service-color, var(--accent)), transparent 84%);
+}
+
+.service-card__name {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.service-card__role {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.service-card__destination {
+  grid-column: 1 / -1;
+  overflow-wrap: anywhere;
+  color: var(--support);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.service-card__action {
+  grid-column: 1 / -1;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.empty-state {
+  min-height: 156px;
+  grid-column: 1 / -1;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  background: var(--surface-solid);
+}
+
+.empty-state__title,
+.empty-state__body {
+  margin: 0;
+}
+
+.empty-state__title {
+  font-weight: 900;
+}
+
+.empty-state__body {
+  margin-top: var(--space-sm);
+  color: var(--muted);
+}
+
+/* =========================================================
+   App shell, header, brand, theme toggle (Task 13)
+   ========================================================= */
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 var(--space-xl);
+  backdrop-filter: blur(18px);
+  background: var(--surface);
+}
+
+.brand {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 13px;
+  line-height: 1;
+}
+
+:root[data-theme="whale"] .brand-mark {
+  background: linear-gradient(135deg, #50c1c1, #265fa2);
+  color: #ffffff;
+}
+
+.brand-text {
+  font-size: 17px;
+  line-height: 1.1;
+}
+
+:root[data-theme="orca"] .brand-text {
+  color: var(--accent);
+  font-style: italic;
+}
+
+:root[data-theme="whale"] .brand-text {
+  max-width: 96px;
+  color: var(--accent);
+  line-height: 0.95;
+}
+
+.theme-toggle {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--card-radius);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  box-shadow: var(--panel-shadow);
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.theme-toggle__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.theme-toggle__text {
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+/* =========================================================
+   Launcher column layout (Task 13)
+   ========================================================= */
+
+.launcher {
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-2xl) var(--space-2xl);
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/* =========================================================
+   Hero panel (Task 13)
+   ========================================================= */
+
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--surface-solid);
+  box-shadow: var(--shadow);
+}
+
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+:root[data-theme="orca"] .hero-panel::before {
+  right: 28px;
+  bottom: 28px;
+  width: 220px;
+  height: 140px;
+  background:
+    radial-gradient(circle at 18% 72%, rgba(0, 220, 229, 0.55) 0 3px, transparent 4px),
+    radial-gradient(circle at 34% 46%, rgba(0, 220, 229, 0.38) 0 2px, transparent 3px),
+    radial-gradient(circle at 58% 62%, rgba(195, 198, 215, 0.4) 0 2px, transparent 3px),
+    radial-gradient(circle at 76% 34%, rgba(0, 220, 229, 0.48) 0 3px, transparent 4px),
+    linear-gradient(135deg, transparent 42%, rgba(0, 220, 229, 0.32) 43%, transparent 45%);
+  opacity: 0.75;
+}
+
+:root[data-theme="whale"] .hero-panel::before {
+  right: 40px;
+  bottom: 56px;
+  width: 220px;
+  height: 120px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='120' viewBox='0 0 220 120' fill='none'%3E%3Cpath d='M6 82C33 56 60 56 87 82C114 108 141 108 168 82C184 66 199 59 214 59' stroke='%23265fa2' stroke-opacity='.28' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M18 58C42 36 66 36 90 58C114 80 138 80 162 58C177 44 191 38 204 38' stroke='%23196a59' stroke-opacity='.22' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M38 34C55 20 72 20 89 34C106 48 123 48 140 34C150 26 160 22 170 22' stroke='%23265fa2' stroke-opacity='.18' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0.95;
+}
+
+.hero-art {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
+
+.hero-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+:root[data-theme="orca"] .hero-art::after {
+  background: linear-gradient(0deg, rgba(1, 15, 31, 0.95) 0%, rgba(1, 15, 31, 0.28) 48%, rgba(1, 15, 31, 0.03) 100%);
+}
+
+:root[data-theme="whale"] .hero-art::after {
+  background: linear-gradient(90deg, rgba(245, 250, 255, 0.82) 0%, rgba(245, 250, 255, 0.2) 52%, rgba(245, 250, 255, 0.04) 100%);
+}
+
+.hero-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+:root[data-theme="orca"] .hero-art img {
+  object-position: center 55%;
+  transform: scale(1.24);
+}
+
+:root[data-theme="whale"] .hero-art img {
+  object-position: center;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-xl);
+}
+
+.hero-metrics {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid color-mix(in srgb, var(--border), transparent 50%);
+  background: transparent;
+}
+
+.hero-metrics .metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+.hero-metrics .metric + .metric {
+  border-left: 1px solid color-mix(in srgb, var(--border), transparent 55%);
+}
+
+.theme-label,
+.section-kicker {
+  margin: 0;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+#heroTitle {
+  margin: var(--space-xs) 0 0;
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+:root[data-theme="orca"] #heroTitle {
+  color: #e9feff;
+  font-style: italic;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(0, 220, 229, 0.3);
+}
+
+:root[data-theme="whale"] #heroTitle {
+  max-width: 12ch;
+  color: var(--accent);
+}
+
+#heroDescription {
+  max-width: 36ch;
+  margin: var(--space-md) 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   Service zone / section heading (Task 13)
+   ========================================================= */
+
+.service-zone {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  padding: var(--space-xl);
+  background: var(--surface);
+  box-shadow: var(--panel-shadow);
+}
+
+:root[data-theme="whale"] .service-zone {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.section-heading h2 {
+  margin: var(--space-xs) 0 0;
+  color: var(--text);
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+:root[data-theme="orca"] .section-heading h2 {
+  font-style: italic;
+}
+
+.section-note {
+  color: var(--support);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* =========================================================
+   Hero metrics typography (shared by .hero-metrics .metric)
+   ========================================================= */
+
+.metric__value { font-size: 22px; font-weight: 900; color: var(--accent); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55); }
+.metric__label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text); text-shadow: 0 1px 5px rgba(0, 0, 0, 0.55); }
+
+/* =========================================================
+   Whale fact (Task 13)
+   ========================================================= */
+
+.whale-fact {
+  display: block;
+  text-align: left;
+  margin-top: var(--space-md);
+  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+  border: none;
+  border-left: 2px solid var(--accent);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  max-width: 52ch;
+}
+
+.whale-fact__text { display: block; font-size: 15px; font-style: italic; line-height: 1.5; }
+.whale-fact__meta { display: block; margin-top: 6px; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); }
+
+/* =========================================================
+   Responsive breakpoints (Task 13 additions)
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .hero-metrics { grid-template-columns: repeat(2, 1fr); }
+
+  .launcher {
+    width: min(100% - 32px, 1200px);
+    padding: var(--space-md) 0 var(--space-xl);
+  }
+
+  .hero-panel {
+    min-height: 420px;
+  }
+
+  .hero-copy {
+    min-height: 420px;
+    justify-content: flex-end;
+    padding: var(--space-lg);
+  }
+
+  :root[data-theme="orca"] .hero-art img {
+    object-position: center 74%;
+    transform: scale(1.42);
+  }
+
+  #heroTitle {
+    font-size: 40px;
+  }
+
+  .service-zone,
+  :root[data-theme="whale"] .service-zone {
+    margin-top: 0;
+    border-radius: var(--card-radius);
+    padding: var(--space-md);
+    background: var(--surface);
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: var(--space-md);
+  }
+}
+
+/* Responsive grid breakpoints */
+@media (max-width: 1280px) {
+  .service-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   Status pill (Task 12)
+   ========================================================= */
+
+.status-pill {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: var(--pill-radius);
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+
+.status-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-pill--up {
+  color: var(--status-up);
+  background: color-mix(in srgb, var(--status-up), transparent 85%);
+  border-color: color-mix(in srgb, var(--status-up), transparent 60%);
+}
+
+.status-pill--down {
+  color: var(--status-down);
+  background: color-mix(in srgb, var(--status-down), transparent 85%);
+  border-color: color-mix(in srgb, var(--status-down), transparent 60%);
+}
+
+.status-pill--checking {
+  color: var(--status-checking);
+  background: color-mix(in srgb, var(--status-checking), transparent 85%);
+  border-color: color-mix(in srgb, var(--status-checking), transparent 60%);
+}

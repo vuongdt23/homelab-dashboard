@@ -1,0 +1,10 @@
+.DS_Store
+.planning/
+stitch_vuong_homelab_dashboard/
+.superpowers/
+node_modules/
+dist/
+*.local
+.env
+!.env.example
+docs/

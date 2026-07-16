@@ -1,0 +1,8 @@
+node_modules
+**/node_modules
+**/dist
+.git
+.planning
+.superpowers
+stitch_vuong_homelab_dashboard
+docs
