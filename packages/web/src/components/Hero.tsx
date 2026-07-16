@@ -26,7 +26,7 @@ export function Hero({ theme, metrics }: { theme: "orca" | "whale"; metrics: Hos
   return (
     <section className="hero-panel" aria-label={`${art.title} — dashboard hero`}>
       <figure className="hero-art">
-        <img src={art.image} width={1024} height={434} alt={`${art.title} artwork`} />
+        <img src={art.image} width={1536} height={672} alt={`${art.title} artwork`} />
       </figure>
       <div className="hero-copy">
         {fact && (
