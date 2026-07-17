@@ -40,6 +40,7 @@
   --border-strong: rgba(255, 255, 255, 0.42);
   --shadow: 0 28px 70px rgba(0, 0, 0, 0.6);
   --panel-shadow: 0 0 42px rgba(255, 255, 255, 0.04);
+  --fact-bg: rgba(0, 0, 0, 0.32);
 }
 
 /* Blue Whale (light) theme */
@@ -59,6 +60,7 @@
   --border-strong: rgba(38, 95, 162, 0.42);
   --shadow: 0 28px 64px rgba(38, 95, 162, 0.12);
   --panel-shadow: 0 24px 60px rgba(38, 95, 162, 0.1);
+  --fact-bg: rgba(255, 255, 255, 0.38);
 }
 
 /* Box model reset */
@@ -552,9 +554,8 @@ button {
   padding: var(--space-md);
   border-left: 2px solid var(--accent);
   border-radius: 0 var(--card-radius) var(--card-radius) 0;
-  background: var(--surface);
-  backdrop-filter: blur(10px);
-  box-shadow: var(--panel-shadow);
+  background: var(--fact-bg);
+  backdrop-filter: blur(14px) saturate(1.1);
   color: var(--text);
   max-width: 52ch;
 }
