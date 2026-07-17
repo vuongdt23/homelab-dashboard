@@ -426,7 +426,7 @@ button {
 }
 
 :root[data-theme="whale"] .hero-art::after {
-  background: linear-gradient(90deg, rgba(245, 250, 255, 0.82) 0%, rgba(245, 250, 255, 0.2) 52%, rgba(245, 250, 255, 0.04) 100%);
+  background: linear-gradient(0deg, rgba(230, 244, 255, 0.72) 0%, rgba(230, 244, 255, 0.18) 26%, transparent 52%);
 }
 
 .hero-art img {
