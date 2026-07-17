@@ -24,6 +24,13 @@ export function App() {
   useEffect(() => {
     fetch("/api/config").then((r) => r.json()).then((c: { host: string }) => setHost(c.host)).catch(() => {});
   }, []);
+  // Preload both theme images so switching is instant.
+  useEffect(() => {
+    for (const src of ["/orca-pod.webp", "/blue-whale.webp"]) {
+      const img = new Image();
+      img.src = src;
+    }
+  }, []);
 
   const toggle = () => setTheme((t) => (t === "orca" ? "whale" : "orca"));
   const nextLabel = theme === "orca" ? "Blue Whale Day" : "Orca Night";

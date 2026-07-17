@@ -2,8 +2,8 @@ import type { HostMetrics } from "@homelab/shared";
 import { useWhaleFact } from "../hooks/useWhaleFact.js";
 
 const THEME_ART: Record<string, { image: string; title: string }> = {
-  orca: { image: "/orca-pod.png", title: "Orca Night" },
-  whale: { image: "/blue-whale.png", title: "Oceanic Serenity" },
+  orca: { image: "/orca-pod.webp", title: "Orca Night" },
+  whale: { image: "/blue-whale.webp", title: "Oceanic Serenity" },
 };
 
 function pct(v: number | null): string { return v === null ? "—" : `${v}%`; }

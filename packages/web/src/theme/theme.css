@@ -549,8 +549,12 @@ button {
 .whale-fact {
   margin: 0;
   text-align: left;
-  padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+  padding: var(--space-md);
   border-left: 2px solid var(--accent);
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  background: var(--surface);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--panel-shadow);
   color: var(--text);
   max-width: 52ch;
 }
@@ -560,7 +564,6 @@ button {
   font-size: 15px;
   font-style: italic;
   line-height: 1.5;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
 .whale-fact__meta {
